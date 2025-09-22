@@ -21,7 +21,7 @@
         <el-button size="small" type="warning" @click="orderCollect">订单汇总</el-button>
         <!-- <el-button size="small" type="warning">导出</el-button> -->
         <!-- 导出当前的表格数据 tableData -->
-        <download-excel class="export-excel-wrapper" :data="tableData" :fields="json_fields" :header="title"
+        <download-excel class="export-excel-wrapper" :data="exportTableData" :fields="json_fields" :header="title"
           name="采购公司订单列表.xls">
           <el-button size="small" type="warning">导出</el-button>
         </download-excel>
@@ -35,7 +35,7 @@
     <!-- 表格区域 -->
     <div class="content">
       <el-table :data="tableData" border style="width: 100%" header-cell-class-name="active-header"
-        cell-class-name="table-center" @select="select">
+        cell-class-name="table-center" @select="select"  @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" :selectable="selectable">
         </el-table-column>
         <el-table-column prop="code" label="订单编号">
@@ -87,6 +87,7 @@ export default {
     return {
       formInline: {},
       tableData: [],//订单列表数据展示
+      exportTableData: [],//导出数据
       total: 10,
       pageSize: 1,
       ids: [],//操作id数组集合]
@@ -158,6 +159,14 @@ export default {
       //存储当前的勾选行的数据信息------ 
       this.DetailsForm = selection;
     },
+
+    //handleSelectionChange-----------------当选择项发生变化时会触发该事件
+    handleSelectionChange(val) {
+      // console.log('选中数据', val);
+      this.exportTableData = val;
+      console.log('导出数据', this.exportTableData);
+    },
+
     //获取分页页码------------------------------
     CurrentChange(page) {
       this.orderList(page)

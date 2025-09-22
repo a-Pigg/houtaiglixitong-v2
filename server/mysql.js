@@ -5,7 +5,7 @@ const mysql = require('mysql')
 const client = mysql.createConnection({
     host: 'localhost', //数据域名 地址
     user: 'root', //数据名称
-    password: '040112zc', //数据库密码 xampp集成
+    password: 'abc123', //数据库密码 xampp集成
     database: 'project',
     port:'3306'
 })
